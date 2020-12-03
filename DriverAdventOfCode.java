@@ -95,7 +95,6 @@ public class DriverAdventOfCode extends AdventOfCode {
         System.out.println("TobogganPath2 test: FAIL");
       }
       System.out.println("Answer is: " + TobogganPath2(arrL2)); //NOT 868184000
-      }
     }
 
     System.out.println("\nDecember 4th");
