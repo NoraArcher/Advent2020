@@ -96,5 +96,24 @@ public class AdventOfCode {
   }
 
 //December 4th
+  public static int PassportValid(ArrayList<String> sets) {
+    int validCount = 0;
+    for (int i = 0; i < sets.size(); i++) {
+      double sum = 0;
+      String s = sets.get(i);
+      if (s.contains("byr")) sum++;
+      if (s.contains("iyr")) sum++;
+      if (s.contains("eyr")) sum++;
+      if (s.contains("hgt")) sum++;
+      if (s.contains("hcl")) sum++;
+      if (s.contains("ecl")) sum++;
+      if (s.contains("pid")) sum++;
+      if (sum == 7.0) validCount++;
+    }
+    return validCount;
+  }
 
-}
+
+
+
+}//end of program

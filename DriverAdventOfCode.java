@@ -1,13 +1,17 @@
-import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.*;
 import java.io.*;
 
 public class DriverAdventOfCode extends AdventOfCode {
 
+
+  private static ArrayList<String> scanning(String fileName) throws FileNotFoundException {
+    Scanner in = new Scanner(new File(fileName));
+    ArrayList<String> lines = new ArrayList<String>();
+    while (in.hasNextLine()) {
+      lines.add(in.nextLine());
+    }
+    return lines;
+  } //scanning end
 
 
   public static void main(String[] args) {
@@ -43,13 +47,10 @@ public class DriverAdventOfCode extends AdventOfCode {
     if (true) {
       String[] arr1 = {"1-3 a: abcde", "1-3 b: cdefg", "2-9 c: ccccccccc"};
       String[] arr2 = {};
-      try (Scanner sc = new Scanner(new File("Dec2Passwords.txt")) ) {
-        List<String> lines = new ArrayList<String>();
-        while (sc.hasNextLine()) {
-          lines.add(sc.nextLine());
-        }
-        arr2 = lines.toArray(new String[0]);
+      try {
+        arr2 = scanning("Dec2Passwords.txt").toArray(new String[0]);
       } catch (IOException e) {
+        System.out.println("Dec3Grid file not found");
         e.printStackTrace();
       }
       if ( PasswordCheckSled(arr1).equals("2") ) {
@@ -74,13 +75,10 @@ public class DriverAdventOfCode extends AdventOfCode {
         "#.##...#...", "#...##....#", ".#..#...#.#"
         ) );
       ArrayList<String> arrL2 = new ArrayList<String>();
-      try (Scanner sc = new Scanner(new File("Dec3Grid.txt")) ) {
-        ArrayList<String> lines = new ArrayList<String>();
-        while (sc.hasNextLine()) {
-          lines.add(sc.nextLine());
-        }
-        arrL2 = lines;
+      try {
+        arrL2 = scanning("Dec3Grid.txt");
       } catch (IOException e) {
+        System.out.println("Dec3Grid file not found");
         e.printStackTrace();
       }
       if ( TobogganPath1(arrL1) == 7 ) {
@@ -99,19 +97,52 @@ public class DriverAdventOfCode extends AdventOfCode {
 
     System.out.println("\nDecember 4th");
     if (true) {
+      String puzinput = "Dec4Credentials.txt";
+      ArrayList<String> arrL1 = new ArrayList<String>( Arrays.asList(
+        "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm", "",
+        "iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884 hcl:#cfa07d byr:1929", "",
+        "hcl:#ae17e1 iyr:2013 eyr:2024 ecl:brn pid:760753108 byr:1931 hgt:179cm", "",
+        "hcl:#cfa07d eyr:2025 pid:166559648 iyr:2011 ecl:brn hgt:59in"
+        ) );
+      ArrayList<String> TEMp = new ArrayList<String>();
+      ArrayList<String> arrL2 = new ArrayList<String>();
+      try {
+        arrL2 = scanning(puzinput);
+      } catch (IOException e) {
+        System.out.println("File "+puzinput+" not found");
+        e.printStackTrace();
+      }
+      String currennt = "";
+      for (int i = 0; i < arrL2.size() - 1; i++) {
+        if (arrL2.get(i).length() > 0) {
+          currennt += arrL2.get(i) + " ";
+        } else {
+          TEMp.add(currennt);
+          currennt = "";
+        }
+      }
+      arrL2 = TEMp;
+      if ( PassportValid(arrL1) == 2 ) {
+        System.out.println("PassportValid test: SUCCESS");
+      } else {
+        System.out.println("PassportValid test: FAIL, there are "+PassportValid(arrL1)+" valid passports.");
+      }
+      System.out.println("Answer is: "+PassportValid(arrL2));
+    }//dec4 end
+
+    System.out.println("\nDecember 5th");
+    if (true) {
+      String puzinput = "Dec3Grid.txt";
       ArrayList<String> arrL1 = new ArrayList<String>( Arrays.asList(
         "1", "2", "3", "4",
         "5", "6", "7", "8",
         "9", "10", "11"
         ) );
       ArrayList<String> arrL2 = new ArrayList<String>();
-      try (Scanner sc = new Scanner(new File("Dec3Grid.txt")) ) {
-        ArrayList<String> lines = new ArrayList<String>();
-        while (sc.hasNextLine()) {
-          lines.add(sc.nextLine());
-        }
-        arrL2 = lines;
+      try {
+        arrL2 = scanning(puzinput);
       } catch (IOException e) {
+        System.out.println("File "+puzinput+" not found");
         e.printStackTrace();
       }
       //TobogganPath1(arrL1) == 7
@@ -120,13 +151,13 @@ public class DriverAdventOfCode extends AdventOfCode {
       } else {
         System.out.println("this test: FAIL");
       }
-    }
+    }//dec5 end
 
 
 
-  }
+  }//main end
 
 
 
 
-}
+}//program end
